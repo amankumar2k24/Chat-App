@@ -38,11 +38,10 @@ export const signup = async (req, res) => {
     });
 
     if (newUser) {
-
       generateTokenAndSetCookie(newUser._id, res);
 
       return res.status(201).json({
-        message: "User created successfully",
+        message: "Registered successfully",
         result: {
           fullName: newUser.fullName,
           username: newUser.username,
@@ -62,42 +61,42 @@ export const signup = async (req, res) => {
 //login
 export const login = async (req, res) => {
   try {
-     const { username, password } = req.body;
+    const { username, password } = req.body;
 
-     const user = await User.findOne({username}); 
-     if (!user) {
+    const user = await User.findOne({ username });
+    if (!user) {
       return res.status(400).json({ message: "Invalid username" });
     }
-    
+
     const isPasswordCorrect = await bcrypt.compare(password, user.password);
-    
+
     if (!isPasswordCorrect) {
       return res.status(400).json({ message: "Invalid password" });
     }
 
-     generateTokenAndSetCookie(user._id, res);
+    generateTokenAndSetCookie(user._id, res);
 
-     return res.status(200).json({
-      message: "User logged in successfully",
+    return res.status(200).json({
+      message: "Logged in successfully",
       result: {
         fullName: user.fullName,
         username: user.username,
         profilePic: user.profilePic,
-     }})
-
+      },
+    });
   } catch (error) {
     return res.status(500).json({
       message: error.message,
-    })
+    });
   }
 };
 
 //logout
 export const logout = (req, res) => {
   try {
-     res.cookie("jwt","", {maxAge:0})
-    return res.status(200).json({message: "User logged out successfully",})
+    res.cookie("jwt", "", { maxAge: 0 });
+    return res.status(200).json({ message: "User logged out successfully" });
   } catch (error) {
-    return res.status(500).json({message: error.message,})
+    return res.status(500).json({ message: error.message });
   }
 };
