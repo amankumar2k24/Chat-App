@@ -25,8 +25,8 @@ export const signup = async (req, res) => {
     const hashPassword = bcrypt.hashSync(password, salt);
 
     //add profile pic
-    const girlProfilePic = `https://avatar.iran.liara.run/public/gir/username=${username}l`;
-    const boyProfilePic = `https://avatar.iran.liara.run/public/boy/username=${username}`;
+    const girlProfilePic = `https://avatar.iran.liara.run/public/girl?username=${username}`;
+    const boyProfilePic = `https://avatar.iran.liara.run/public/boy?username=${username}`;
 
     //create new user
     const newUser = await User.create({
@@ -36,13 +36,14 @@ export const signup = async (req, res) => {
       gender,
       profilePic: gender === "male" ? boyProfilePic : girlProfilePic,
     });
-
+    
     if (newUser) {
       generateTokenAndSetCookie(newUser._id, res);
 
       return res.status(201).json({
         message: "Registered successfully",
         result: {
+          _id: newUser._id,
           fullName: newUser.fullName,
           username: newUser.username,
           profilePic: newUser.profilePic,
@@ -79,6 +80,7 @@ export const login = async (req, res) => {
     return res.status(200).json({
       message: "Logged in successfully",
       result: {
+        _id: user._id,
         fullName: user.fullName,
         username: user.username,
         profilePic: user.profilePic,
