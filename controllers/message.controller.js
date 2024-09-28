@@ -6,6 +6,7 @@ export const sendMessage = async (req, res) => {
   try {
     const { message } = req.body;
     const { id: receiverId } = req.params;
+    const senderId = req.user._id;
     // Check if req.user is av ailable
     if (!req.user) {
       return res.status(401).json({
@@ -13,7 +14,6 @@ export const sendMessage = async (req, res) => {
       });
     }
 
-    const senderId = req.user._id;
     if (!senderId) {
       return res.status(401).json({
         message: "You are not authorized to access this route",

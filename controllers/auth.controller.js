@@ -36,9 +36,12 @@ export const signup = async (req, res) => {
       gender,
       profilePic: gender === "male" ? boyProfilePic : girlProfilePic,
     });
-    
+
     if (newUser) {
       generateTokenAndSetCookie(newUser._id, res);
+
+      console.log("res=>", res);
+      console.log("newUser=>", newUser);
 
       return res.status(201).json({
         message: "Registered successfully",
