@@ -13,7 +13,7 @@ export const generateTokenAndSetCookie = (userId, res) => {
     httpOnly: true, // cookie only accessible by server
     maxAge: 24 * 60 * 60 * 1000,
     secure: true, // only set cookie over https in production
-    sameSite: "None", // prevent CSRF forgery attacks
+    sameSite: "None", 
+    //sameSite : true run only on locally but not on production
   });
-  console.log("Set-Cookie header:", res.getHeaders()["set-cookie"]);
 };

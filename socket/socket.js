@@ -9,7 +9,7 @@ const server = http.createServer(app);
 
 const io = new Server(server, {
   cors: {
-    origin: "https://aman-chat-app.vercel.app",
+    origin: allowedOrigins,
     credentials: true,
     methods: ["GET", "POST"],
   },
