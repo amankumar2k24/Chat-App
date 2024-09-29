@@ -10,7 +10,8 @@ export const generateTokenAndSetCookie = (userId, res) => {
   res.cookie("jwt", token, {
     httpOnly: true, // cookie only accessible by server
     maxAge: 24 * 60 * 60 * 1000,
-    secure: process.env.NODE_ENV !== "development", // only set cookie over https in production
+    // secure: process.env.NODE_ENV !== "development", // only set cookie over https in production
+    secure: true, // only set cookie over https in production
     sameSite: "strict", // prevent CSRF forgery attacks
   });
 };
