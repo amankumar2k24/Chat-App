@@ -7,6 +7,7 @@ import messageRoutes from "./routes/message.route.js";
 import userRoutes from "./routes/user.route.js";
 import { connectToMongoDB } from "./db/connectToMongoDB.js";
 import { app, server } from "./socket/socket.js";
+import { allowedOrigins } from "./utils/allowedOrigins.js";
 
 dotenv.config();
 
@@ -16,7 +17,7 @@ app.use(express.json());
 app.use(
   cors({
     // origin: "http://localhost:3000",
-    origin: "https://aman-chat-app.vercel.app",
+    origin: allowedOrigins,
     credentials: true,
   })
 );
