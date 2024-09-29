@@ -16,8 +16,8 @@ const PORT = process.env.PORT || 6000;
 app.use(express.json());
 app.use(
   cors({
-    origin: "https://aman-chat-app.vercel.app",
-    // origin: allowedOrigins,
+    // origin: "http://localhost:3000",
+    origin: allowedOrigins,
     credentials: true,
   })
 );
