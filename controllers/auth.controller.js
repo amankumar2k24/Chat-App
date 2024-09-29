@@ -79,7 +79,7 @@ export const login = async (req, res) => {
     }
 
     generateTokenAndSetCookie(user._id, res);
-
+    console.log("Response headers:", res.getHeaders());
     return res.status(200).json({
       message: "Logged in successfully",
       result: {
