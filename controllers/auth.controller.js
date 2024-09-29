@@ -40,9 +40,6 @@ export const signup = async (req, res) => {
     if (newUser) {
       generateTokenAndSetCookie(newUser._id, res);
 
-      console.log("res=>", res);
-      console.log("newUser=>", newUser);
-
       return res.status(201).json({
         message: "Registered successfully",
         result: {
@@ -79,7 +76,7 @@ export const login = async (req, res) => {
     }
 
     generateTokenAndSetCookie(user._id, res);
-    console.log("Response headers:", res.getHeaders());
+    // console.log("Response headers:", res.getHeaders());
     return res.status(200).json({
       message: "Logged in successfully",
       result: {

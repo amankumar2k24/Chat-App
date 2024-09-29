@@ -9,7 +9,7 @@ const server = http.createServer(app);
 
 const io = new Server(server, {
   cors: {
-    origin: allowedOrigins,
+    origin: ["http://localhost:3000"],
     credentials: true,
     methods: ["GET", "POST"],
   },
@@ -27,16 +27,14 @@ io.on("connection", (socket) => {
   const userId = socket.handshake.query.userId;
   console.log("userId", userId);
 
-  if (userId != "undefined") {
-    userSocketMap[userId] = socket.id;
-  }
+  if (userId != "undefined") userSocketMap[userId] = socket.id;
 
   // io.emit() is used to emit an event to all connected clients.
   io.emit("getOnlineUsers", Object.keys(userSocketMap));
 
   // socket.on() is used to listen for events emitted by the client-side code.
   socket.on("disconnect", () => {
-    console.log("user disconnected", socket.id);
+    // console.log("user disconnected", socket.id);
     delete userSocketMap[userId];
     io.emit("getOnlineUsers", Object.keys(userSocketMap));
   });

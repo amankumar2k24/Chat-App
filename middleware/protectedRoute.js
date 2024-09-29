@@ -3,9 +3,9 @@ import jwt from "jsonwebtoken";
 
 export const ProtectedRoute = async (req, res, next) => {
   try {
-    console.log("Incoming cookies:", req.cookies);
+    // console.log("Incoming cookies:", req.cookies);
     const token = req?.cookies?.jwt;
-    console.log("Token received:", token);
+    // console.log("Token received:", token);
     if (!token) {
       return res
         .status(401)
@@ -13,7 +13,7 @@ export const ProtectedRoute = async (req, res, next) => {
     }
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    console.log("Decoded token:", decoded);
+    // console.log("Decoded token:", decoded);
     if (!decoded) {
       return res.status(401).json({ message: "Unauthorized - Invalid token" });
     }
